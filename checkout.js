@@ -1,7 +1,7 @@
 let cart =
   JSON.parse(localStorage.getItem('cart')) || [];
 
-/* IMAGES */
+/* FOOD IMAGES */
 
 const foodImages = {
 
@@ -16,14 +16,7 @@ const foodImages = {
 
 };
 
-function saveCart(){
-
-  localStorage.setItem(
-    'cart',
-    JSON.stringify(cart)
-  );
-
-}
+/* UPDATE CHECKOUT UI */
 
 function updateCheckout(){
 
@@ -46,6 +39,8 @@ function updateCheckout(){
     total;
 
   checkoutItems.innerHTML = '';
+
+  /* EMPTY CART */
 
   if(cart.length===0){
 
@@ -73,6 +68,8 @@ function updateCheckout(){
 
   }
 
+  /* SHOW ITEMS */
+
   cart.forEach((item,index)=>{
 
     checkoutItems.innerHTML += `
@@ -93,7 +90,7 @@ function updateCheckout(){
             </h3>
 
             <p>
-              Premium handcrafted dish.
+              Premium handcrafted dish
             </p>
 
           </div>
@@ -123,15 +120,22 @@ function updateCheckout(){
 
 }
 
+/* REMOVE ITEM */
+
 function removeItem(index){
 
   cart.splice(index,1);
 
-  saveCart();
+  localStorage.setItem(
+    'cart',
+    JSON.stringify(cart)
+  );
 
   updateCheckout();
 
 }
+
+/* PLACE ORDER */
 
 function placeOrder(){
 
@@ -143,6 +147,8 @@ function placeOrder(){
 
   const notes =
     document.getElementById('notes').value;
+
+  /* VALIDATION */
 
   if(
     !customerName ||
@@ -158,6 +164,8 @@ function placeOrder(){
 
   }
 
+  /* CREATE ORDER TEXT */
+
   let orderList = '';
 
   cart.forEach((item)=>{
@@ -167,11 +175,13 @@ function placeOrder(){
 
   });
 
+  /* SEND EMAIL */
+
   emailjs.send(
 
-    service_f8z9fmd,
+    "YOUR_SERVICE_ID",
 
-    template_h9vv02q,
+    "YOUR_TEMPLATE_ID",
 
     {
       customer_name: customerName,
@@ -182,19 +192,25 @@ function placeOrder(){
 
   )
 
+  /* SUCCESS */
+
   .then(()=>{
+
+    /* SAVE FOR INVOICE */
 
     localStorage.setItem(
       'lastOrder',
       JSON.stringify(cart)
     );
 
-    localStorage.removeItem('cart');
+    /* REDIRECT */
 
     window.location.href =
       'thankyou.html';
 
   })
+
+  /* ERROR */
 
   .catch((error)=>{
 
@@ -208,89 +224,6 @@ function placeOrder(){
 
 }
 
-  let orderText =
-    `Customer Name: ${customerName}%0D%0A`;
-
-  orderText +=
-    `Table Number: ${tableNumber}%0D%0A%0D%0A`;
-
-  orderText +=
-    `Order Items:%0D%0A`;
-
-  cart.forEach((item)=>{
-
-    orderText +=
-      `- ${item.name} (₹${item.price})%0D%0A`;
-
-  });
-
-  orderText +=
-    `%0D%0AInstructions:%0D%0A${notes}`;
-
-  /* SAVE ORDER */
-
-  localStorage.setItem(
-    'lastOrder',
-    JSON.stringify(cart)
-  );
-
-  /* OPEN EMAIL */
-
-  window.open(
-    `mailto:dasyug91@gmail.com?subject=New Premium Restaurant Order&body=${orderText}`
-  );
-
-  /* CLEAR CART */
-
-  localStorage.removeItem('cart');
-
-  /* REDIRECT */
-
-  setTimeout(()=>{
-
-    window.location.href =
-      'thankyou.html';
-
-  },500);
-
-}
-
-  let orderText =
-    `Customer Name: ${customerName}%0D%0A`;
-
-  orderText +=
-    `Table Number: ${tableNumber}%0D%0A%0D%0A`;
-
-  orderText +=
-    `Order Items:%0D%0A`;
-
-  cart.forEach((item)=>{
-
-    orderText +=
-      `- ${item.name} (₹${item.price})%0D%0A`;
-
-  });
-
-  orderText +=
-    `%0D%0AInstructions:%0D%0A${notes}`;
-
-localStorage.setItem(
-  'lastOrder',
-  JSON.stringify(cart)
-);
-
-window.location.href =
-  `mailto:dasyug91@gmail.com?subject=New Premium Restaurant Order&body=${orderText}`;
-
-setTimeout(()=>{
-
-  localStorage.removeItem('cart');
-
-  window.location.href =
-    'thankyou.html';
-
-},1000);
-
-}
+/* INITIAL LOAD */
 
 updateCheckout();
