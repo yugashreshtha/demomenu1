@@ -1,71 +1,225 @@
-<html lang="en">
-        Your premium dining order has been received.
-      </p>
+let cart =
+  JSON.parse(localStorage.getItem('cart')) || [];
 
-      <!-- INVOICE -->
+/* FOOD IMAGES */
 
-      <div class="invoice-box">
+const foodImages = {
 
-        <div class="invoice-top">
+  "Smoky Burger":
+  "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1998&auto=format&fit=crop",
 
-          <div>
-            <h2>
-              Digital Invoice
-            </h2>
+  "Fire Pizza":
+  "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop",
+
+  "Creamy Pasta":
+  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1974&auto=format&fit=crop"
+
+};
+
+/* UPDATE UI */
+
+function updateCheckout(){
+
+  const checkoutItems =
+    document.getElementById('checkout-items');
+
+  const checkoutTotal =
+    document.getElementById('checkout-total');
+
+  const itemCount =
+    document.getElementById('item-count');
+
+  const total =
+    cart.reduce((sum,item)=>sum+item.price,0);
+
+  itemCount.innerText =
+    cart.length;
+
+  checkoutTotal.innerText =
+    total;
+
+  checkoutItems.innerHTML = '';
+
+  /* EMPTY */
+
+  if(cart.length===0){
+
+    checkoutItems.innerHTML = `
+    
+      <div class="checkout-item">
+
+        <div class="item-info">
+
+          <h3>
+            Your cart is empty.
+          </h3>
+
+          <p>
+            Add dishes from the menu first.
+          </p>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  /* ITEMS */
+
+  cart.forEach((item,index)=>{
+
+    checkoutItems.innerHTML += `
+    
+      <div class="checkout-item">
+
+        <div class="item-left">
+
+          <img
+            src="${foodImages[item.name]}"
+            alt=""
+          />
+
+          <div class="item-info">
+
+            <h3>
+              ${item.name}
+            </h3>
 
             <p>
-              Midnight Bites
+              Premium handcrafted dish
             </p>
+
           </div>
 
-          <span id="invoice-date"></span>
-
         </div>
 
-        <div
-          id="invoice-items"
-          class="invoice-items"
-        ></div>
+        <div class="item-right">
 
-        <div class="invoice-total">
+          <div class="item-price">
+            ₹${item.price}
+          </div>
 
-          <span>
-            Total
-          </span>
-
-          <span>
-            ₹<span id="invoice-total">0</span>
-          </span>
+          <button
+            class="remove-btn"
+            onclick="removeItem(${index})"
+          >
+            Remove
+          </button>
 
         </div>
 
       </div>
 
-      <!-- BUTTONS -->
+    `;
 
-      <div class="buttons">
+  });
 
-        <button
-          onclick="downloadInvoice()"
-          class="download-btn"
-        >
-          Download Invoice
-        </button>
+}
 
-        <a
-          href="menu.html"
-          class="menu-btn"
-        >
-          Back To Menu
-        </a>
+/* REMOVE */
 
-      </div>
+function removeItem(index){
 
-    </div>
+  cart.splice(index,1);
 
-  </main>
+  localStorage.setItem(
+    'cart',
+    JSON.stringify(cart)
+  );
 
-  <script src="thankyou.js"></script>
+  updateCheckout();
 
-</body>
-</html>
+}
+
+/* PLACE ORDER */
+
+function placeOrder(){
+
+  const customerName =
+    document.getElementById('customer-name').value;
+
+  const tableNumber =
+    document.getElementById('table-number').value;
+
+  const notes =
+    document.getElementById('notes').value;
+
+  /* VALIDATION */
+
+  if(
+    !customerName ||
+    !tableNumber ||
+    cart.length===0
+  ){
+
+    alert(
+      'Please complete all required fields.'
+    );
+
+    return;
+
+  }
+
+  /* CREATE ORDER */
+
+  let orderList = '';
+
+  cart.forEach((item)=>{
+
+    orderList +=
+      `${item.name} - ₹${item.price}\n`;
+
+  });
+
+  /* SEND EMAIL */
+
+  emailjs.send(
+
+    "service_f8z9fmd",
+
+    "template_h9vv02q",
+
+    {
+      customer_name: customerName,
+      table_number: tableNumber,
+      order: orderList,
+      notes: notes
+    }
+
+  )
+
+  /* SUCCESS */
+
+  .then(()=>{
+
+    localStorage.setItem(
+      'lastOrder',
+      JSON.stringify(cart)
+    );
+
+    window.location.href =
+      'thankyou.html';
+
+  })
+
+  /* ERROR */
+
+  .catch((error)=>{
+
+    alert(
+      'Failed to send order.'
+    );
+
+    console.log(error);
+
+  });
+
+}
+
+/* LOAD */
+
+updateCheckout();
