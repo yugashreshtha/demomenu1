@@ -1,0 +1,54 @@
+{
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.download-btn,
+.menu-btn{
+  border:none;
+  background:crimson;
+  color:white;
+  padding:18px 26px;
+  border-radius:18px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.menu-btn{
+  background:#1d1d1d;
+}
+
+@media(max-width:768px){
+
+  .thankyou-box{
+    padding:40px 20px;
+  }
+
+  .thankyou-box h1{
+    font-size:40px;
+    line-height:1.1;
+  }
+
+  .invoice-top{
+    flex-direction:column;
+  }
+
+  .invoice-item{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .buttons{
+    flex-direction:column;
+  }
+
+  .download-btn,
+  .menu-btn{
+    width:100%;
+    text-align:center;
+  }
+
+}

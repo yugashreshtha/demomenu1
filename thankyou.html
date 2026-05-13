@@ -1,0 +1,71 @@
+<html lang="en">
+        Your premium dining order has been received.
+      </p>
+
+      <!-- INVOICE -->
+
+      <div class="invoice-box">
+
+        <div class="invoice-top">
+
+          <div>
+            <h2>
+              Digital Invoice
+            </h2>
+
+            <p>
+              Midnight Bites
+            </p>
+          </div>
+
+          <span id="invoice-date"></span>
+
+        </div>
+
+        <div
+          id="invoice-items"
+          class="invoice-items"
+        ></div>
+
+        <div class="invoice-total">
+
+          <span>
+            Total
+          </span>
+
+          <span>
+            ₹<span id="invoice-total">0</span>
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- BUTTONS -->
+
+      <div class="buttons">
+
+        <button
+          onclick="downloadInvoice()"
+          class="download-btn"
+        >
+          Download Invoice
+        </button>
+
+        <a
+          href="menu.html"
+          class="menu-btn"
+        >
+          Back To Menu
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="thankyou.js"></script>
+
+</body>
+</html>

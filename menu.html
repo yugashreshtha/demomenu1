@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Menu - Midnight Bites</title>
+
+  <link rel="stylesheet" href="menu.css" />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <a href="index.html" class="logo">
+      MIDNIGHT BITES
+    </a>
+
+    <div class="nav-right">
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          placeholder="Search dishes..."
+        />
+
+      </div>
+
+      <a href="checkout.html" class="cart-btn">
+
+        Cart
+
+        <span id="cart-count">
+          0
+        </span>
+
+      </a>
+
+    </div>
+
+  </nav>
+
+  <!-- HEADER -->
+
+  <section class="menu-header">
+
+    <span>
+      Curated Dining
+    </span>
+
+    <h1>
+      Crafted Premium Selection
+    </h1>
+
+    <p>
+      Discover chef curated dishes designed
+      for a luxury digital dining experience.
+    </p>
+
+  </section>
+
+  <!-- CATEGORY -->
+
+  <section class="category-bar">
+
+    <button class="category active">
+      Popular
+    </button>
+
+    <button class="category">
+      Burgers
+    </button>
+
+    <button class="category">
+      Pizza
+    </button>
+
+    <button class="category">
+      Pasta
+    </button>
+
+    <button class="category">
+      Drinks
+    </button>
+
+  </section>
+
+  <!-- MENU -->
+
+  <main class="menu-layout">
+
+    <!-- LEFT -->
+
+    <section class="food-grid">
+
+      <!-- CARD -->
+
+      <div class="food-card">
+
+        <div class="image-wrapper">
+
+          <img
+            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1998&auto=format&fit=crop"
+            alt=""
+          />
+
+          <span class="tag">
+            Bestseller
+          </span>
+
+        </div>
+
+        <div class="food-content">
+
+          <div class="food-top">
+
+            <div>
+
+              <h2>
+                Smoky Burger
+              </h2>
+
+              <p>
+                Double grilled chicken burger with
+                layered premium cheese.
+              </p>
+
+            </div>
+
+            <span class="price">
+              ₹199
+            </span>
+
+          </div>
+
+          <div class="food-bottom">
+
+            <div class="rating">
+              ★ 4.8
+            </div>
+
+            <button
+              onclick="addToCart('Smoky Burger',199)"
+            >
+              Add +
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+
+      <div class="food-card">
+
+        <div class="image-wrapper">
+
+          <img
+            src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop"
+            alt=""
+          />
+
+          <span class="tag">
+            Hot
+          </span>
+
+        </div>
+
+        <div class="food-content">
+
+          <div class="food-top">
+
+            <div>
+
+              <h2>
+                Fire Pizza
+              </h2>
+
+              <p>
+                Stone baked loaded pizza with
+                rich toppings and cheese.
+              </p>
+
+            </div>
+
+            <span class="price">
+              ₹349
+            </span>
+
+          </div>
+
+          <div class="food-bottom">
+
+            <div class="rating">
+              ★ 4.9
+            </div>
+
+            <button
+              onclick="addToCart('Fire Pizza',349)"
+            >
+              Add +
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+
+      <div class="food-card">
+
+        <div class="image-wrapper">
+
+          <img
+            src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1974&auto=format&fit=crop"
+            alt=""
+          />
+
+          <span class="tag">
+            Creamy
+          </span>
+
+        </div>
+
+        <div class="food-content">
+
+          <div class="food-top">
+
+            <div>
+
+              <h2>
+                Creamy Pasta
+              </h2>
+
+              <p>
+                Rich creamy garlic pasta with
+                fresh herbs and parmesan.
+              </p>
+
+            </div>
+
+            <span class="price">
+              ₹259
+            </span>
+
+          </div>
+
+          <div class="food-bottom">
+
+            <div class="rating">
+              ★ 4.7
+            </div>
+
+            <button
+              onclick="addToCart('Creamy Pasta',259)"
+            >
+              Add +
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CART -->
+
+    <aside class="cart-sidebar">
+
+      <div class="cart-box">
+
+        <div class="cart-top">
+
+          <div>
+
+            <h2>
+              Your Order
+            </h2>
+
+            <p>
+              Live cart tracking
+            </p>
+
+          </div>
+
+          <span id="sidebar-count">
+            0 Items
+          </span>
+
+        </div>
+
+        <div
+          id="cart-items"
+          class="cart-items"
+        >
+          No items selected.
+        </div>
+
+        <div class="cart-total">
+
+          <span>
+            Total
+          </span>
+
+          <span>
+            ₹<span id="cart-total">0</span>
+          </span>
+
+        </div>
+
+        <a
+          href="checkout.html"
+          class="checkout-btn"
+        >
+          Continue To Checkout
+        </a>
+
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- MOBILE FLOATING -->
+
+  <a
+    href="checkout.html"
+    class="mobile-cart"
+  >
+
+    <div>
+
+      <span id="mobile-count">
+        0 Items
+      </span>
+
+      <p>
+        View Cart
+      </p>
+
+    </div>
+
+    <span>
+      ₹<span id="mobile-total">0</span>
+    </span>
+
+  </a>
+
+  <script src="menu.js"></script>
+
+</body>
+</html>

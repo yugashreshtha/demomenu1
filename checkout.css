@@ -1,0 +1,277 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#050505;
+  color:white;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
+
+/* NAVBAR */
+
+.navbar{
+  padding:24px 7%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:rgba(5,5,5,0.88);
+}
+
+.back-btn{
+  color:white;
+  text-decoration:none;
+  background:#121212;
+  border:1px solid #1e1e1e;
+  padding:14px 20px;
+  border-radius:16px;
+  transition:0.3s;
+}
+
+.back-btn:hover{
+  background:crimson;
+  border-color:crimson;
+}
+
+.logo{
+  font-weight:800;
+  letter-spacing:3px;
+}
+
+/* LAYOUT */
+
+.checkout-layout{
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:40px;
+  padding:60px 7% 120px;
+}
+
+/* LEFT */
+
+.section-title span{
+  color:#ff8ca8;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:13px;
+}
+
+.section-title h1{
+  margin-top:16px;
+  font-size:58px;
+  line-height:1;
+}
+
+/* ITEMS */
+
+.checkout-items{
+  margin-top:40px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.checkout-item{
+  background:#101010;
+  border:1px solid #1b1b1b;
+  border-radius:26px;
+  padding:22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  transition:0.3s;
+}
+
+.checkout-item:hover{
+  border-color:rgba(220,20,60,0.35);
+}
+
+.item-left{
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+.item-left img{
+  width:90px;
+  height:90px;
+  border-radius:20px;
+  object-fit:cover;
+}
+
+.item-info h3{
+  font-size:22px;
+}
+
+.item-info p{
+  margin-top:10px;
+  color:#9f9f9f;
+}
+
+.item-right{
+  text-align:right;
+}
+
+.item-price{
+  font-size:24px;
+  font-weight:700;
+}
+
+.remove-btn{
+  margin-top:14px;
+  background:transparent;
+  border:none;
+  color:#ff6f91;
+  cursor:pointer;
+  font-size:15px;
+}
+
+/* SIDEBAR */
+
+.checkout-sidebar{
+  position:sticky;
+  top:110px;
+  height:fit-content;
+}
+
+.summary-box{
+  background:rgba(17,17,17,0.88);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:34px;
+  padding:32px;
+  backdrop-filter:blur(20px);
+}
+
+.summary-box h2{
+  font-size:32px;
+}
+
+.summary-row{
+  margin-top:26px;
+  display:flex;
+  justify-content:space-between;
+  color:#b3b3b3;
+}
+
+.summary-row.total{
+  margin-top:18px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  font-size:24px;
+  font-weight:700;
+  color:white;
+}
+
+/* FORM */
+
+.checkout-form{
+  margin-top:35px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.checkout-form input,
+.checkout-form textarea{
+  width:100%;
+  background:#121212;
+  border:1px solid #1e1e1e;
+  padding:18px;
+  border-radius:18px;
+  color:white;
+  outline:none;
+  transition:0.3s;
+}
+
+.checkout-form input:focus,
+.checkout-form textarea:focus{
+  border-color:crimson;
+}
+
+.checkout-form textarea{
+  min-height:140px;
+  resize:none;
+}
+
+/* BUTTON */
+
+.place-order-btn{
+  width:100%;
+  margin-top:30px;
+  background:crimson;
+  color:white;
+  border:none;
+  padding:20px;
+  border-radius:22px;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.place-order-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+  .checkout-layout{
+    grid-template-columns:1fr;
+  }
+
+  .checkout-sidebar{
+    position:relative;
+    top:0;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .navbar{
+    padding:18px 20px;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .checkout-layout{
+    padding:40px 20px 120px;
+  }
+
+  .section-title h1{
+    font-size:42px;
+    line-height:1.1;
+  }
+
+  .checkout-item{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .item-right{
+    width:100%;
+    text-align:left;
+  }
+
+  .item-left{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .item-left img{
+    width:100%;
+    height:220px;
+  }
+
+}
