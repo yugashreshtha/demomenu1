@@ -177,6 +177,53 @@ function placeOrder(){
   orderText +=
     `%0D%0AInstructions:%0D%0A${notes}`;
 
+  /* SAVE ORDER */
+
+  localStorage.setItem(
+    'lastOrder',
+    JSON.stringify(cart)
+  );
+
+  /* OPEN EMAIL */
+
+  window.open(
+    `mailto:dasyug91@gmail.com?subject=New Premium Restaurant Order&body=${orderText}`
+  );
+
+  /* CLEAR CART */
+
+  localStorage.removeItem('cart');
+
+  /* REDIRECT */
+
+  setTimeout(()=>{
+
+    window.location.href =
+      'thankyou.html';
+
+  },500);
+
+}
+
+  let orderText =
+    `Customer Name: ${customerName}%0D%0A`;
+
+  orderText +=
+    `Table Number: ${tableNumber}%0D%0A%0D%0A`;
+
+  orderText +=
+    `Order Items:%0D%0A`;
+
+  cart.forEach((item)=>{
+
+    orderText +=
+      `- ${item.name} (₹${item.price})%0D%0A`;
+
+  });
+
+  orderText +=
+    `%0D%0AInstructions:%0D%0A${notes}`;
+
 localStorage.setItem(
   'lastOrder',
   JSON.stringify(cart)
