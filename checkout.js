@@ -179,9 +179,9 @@ function placeOrder(){
 
   emailjs.send(
 
-    service_f8z9fmd,
+    "service_f8z9fmd",
 
-    template_h9vv02q,
+    "template_h9vv02q",
 
     {
       customer_name: customerName,
