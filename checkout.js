@@ -16,7 +16,7 @@ const foodImages = {
 
 };
 
-/* UPDATE CHECKOUT UI */
+/* UPDATE UI */
 
 function updateCheckout(){
 
@@ -40,7 +40,7 @@ function updateCheckout(){
 
   checkoutItems.innerHTML = '';
 
-  /* EMPTY CART */
+  /* EMPTY */
 
   if(cart.length===0){
 
@@ -68,7 +68,7 @@ function updateCheckout(){
 
   }
 
-  /* SHOW ITEMS */
+  /* ITEMS */
 
   cart.forEach((item,index)=>{
 
@@ -120,7 +120,7 @@ function updateCheckout(){
 
 }
 
-/* REMOVE ITEM */
+/* REMOVE */
 
 function removeItem(index){
 
@@ -164,7 +164,7 @@ function placeOrder(){
 
   }
 
-  /* CREATE ORDER TEXT */
+  /* CREATE ORDER */
 
   let orderList = '';
 
@@ -196,14 +196,10 @@ function placeOrder(){
 
   .then(()=>{
 
-    /* SAVE FOR INVOICE */
-
     localStorage.setItem(
       'lastOrder',
       JSON.stringify(cart)
     );
-
-    /* REDIRECT */
 
     window.location.href =
       'thankyou.html';
@@ -224,6 +220,6 @@ function placeOrder(){
 
 }
 
-/* INITIAL LOAD */
+/* LOAD */
 
 updateCheckout();
