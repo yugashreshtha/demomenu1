@@ -52,7 +52,7 @@
 
   </nav>
 
-  <!-- PAGE -->
+  <!-- MAIN -->
 
   <main class="checkout-layout">
 
@@ -69,6 +69,10 @@
         <h1>
           Review Your Order
         </h1>
+
+        <p>
+          Confirm your premium dining experience.
+        </p>
 
       </div>
 
@@ -92,7 +96,7 @@
           Order Summary
         </h2>
 
-        <!-- TOTAL -->
+        <!-- SUMMARY -->
 
         <div class="summary-row">
 
@@ -130,8 +134,8 @@
 
           <input
             type="text"
-            id="phone-number"
-            placeholder="Phone Number"
+            id="table-number"
+            placeholder="Table Number"
           />
 
           <textarea
@@ -147,7 +151,7 @@
           onclick="placeOrder()"
           class="place-order-btn"
         >
-          Place Order
+          Place Premium Order
         </button>
 
       </div>
@@ -156,16 +160,24 @@
 
   </main>
 
+  <!-- EMAILJS -->
+
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+
+  <script>
+
+    emailjs.init(
+      "xtBxfhhd5RS9Q6DbV"
+    );
+
+  </script>
+
+  <!-- JS -->
+
   <script src="checkout.js"></script>
 
-<script
-  type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-
-<script>
-  emailjs.init("xtBxfhhd5RS9Q6DbV");
-</script>
-  
 </body>
 </html>
