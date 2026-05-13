@@ -1,225 +1,154 @@
-let cart =
-  JSON.parse(localStorage.getItem('cart')) || [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-/* FOOD IMAGES */
+  <meta charset="UTF-8" />
 
-const foodImages = {
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  "Smoky Burger":
-  "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1998&auto=format&fit=crop",
+  <title>
+    Order Confirmed - Midnight Bites
+  </title>
 
-  "Fire Pizza":
-  "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070&auto=format&fit=crop",
+  <link
+    rel="stylesheet"
+    href="thankyou.css"
+  />
 
-  "Creamy Pasta":
-  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=1974&auto=format&fit=crop"
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  />
 
-};
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  />
 
-/* UPDATE UI */
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
 
-function updateCheckout(){
+</head>
 
-  const checkoutItems =
-    document.getElementById('checkout-items');
+<body>
 
-  const checkoutTotal =
-    document.getElementById('checkout-total');
+  <!-- BACKGROUND GLOW -->
 
-  const itemCount =
-    document.getElementById('item-count');
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
 
-  const total =
-    cart.reduce((sum,item)=>sum+item.price,0);
+  <!-- MAIN -->
 
-  itemCount.innerText =
-    cart.length;
+  <main class="thankyou-wrapper">
 
-  checkoutTotal.innerText =
-    total;
+    <section class="thankyou-card">
 
-  checkoutItems.innerHTML = '';
+      <!-- SUCCESS -->
 
-  /* EMPTY */
+      <div class="success-area">
 
-  if(cart.length===0){
-
-    checkoutItems.innerHTML = `
-    
-      <div class="checkout-item">
-
-        <div class="item-info">
-
-          <h3>
-            Your cart is empty.
-          </h3>
-
-          <p>
-            Add dishes from the menu first.
-          </p>
-
+        <div class="success-circle">
+          ✓
         </div>
+
+        <span class="status-tag">
+          ORDER CONFIRMED
+        </span>
+
+        <h1>
+          Your Order Is Being Prepared
+        </h1>
+
+        <p>
+          Our kitchen has received your premium dining request.
+          A waiter will confirm your order shortly.
+        </p>
 
       </div>
 
-    `;
+      <!-- ORDER DETAILS -->
 
-    return;
+      <div class="invoice-card">
 
-  }
+        <div class="invoice-top">
 
-  /* ITEMS */
+          <div>
 
-  cart.forEach((item,index)=>{
+            <span class="invoice-label">
+              DIGITAL RECEIPT
+            </span>
 
-    checkoutItems.innerHTML += `
-    
-      <div class="checkout-item">
+            <h2>
+              Midnight Bites
+            </h2>
 
-        <div class="item-left">
+          </div>
 
-          <img
-            src="${foodImages[item.name]}"
-            alt=""
-          />
+          <div class="invoice-meta">
 
-          <div class="item-info">
+            <span id="invoice-date"></span>
 
-            <h3>
-              ${item.name}
-            </h3>
-
-            <p>
-              Premium handcrafted dish
-            </p>
+            <strong id="order-id"></strong>
 
           </div>
 
         </div>
 
-        <div class="item-right">
+        <!-- ITEMS -->
 
-          <div class="item-price">
-            ₹${item.price}
-          </div>
+        <div
+          id="invoice-items"
+          class="invoice-items"
+        >
+        </div>
 
-          <button
-            class="remove-btn"
-            onclick="removeItem(${index})"
-          >
-            Remove
-          </button>
+        <!-- TOTAL -->
+
+        <div class="invoice-total">
+
+          <span>
+            Total Amount
+          </span>
+
+          <strong>
+            ₹<span id="invoice-total">0</span>
+          </strong>
 
         </div>
 
       </div>
 
-    `;
+      <!-- ACTIONS -->
 
-  });
+      <div class="action-buttons">
 
-}
+        <button
+          onclick="downloadInvoice()"
+          class="download-btn"
+        >
+          Download Invoice
+        </button>
 
-/* REMOVE */
+        <a
+          href="menu.html"
+          class="back-menu-btn"
+        >
+          Order More Food
+        </a>
 
-function removeItem(index){
+      </div>
 
-  cart.splice(index,1);
+    </section>
 
-  localStorage.setItem(
-    'cart',
-    JSON.stringify(cart)
-  );
+  </main>
 
-  updateCheckout();
+  <script src="thankyou.js"></script>
 
-}
-
-/* PLACE ORDER */
-
-function placeOrder(){
-
-  const customerName =
-    document.getElementById('customer-name').value;
-
-  const tableNumber =
-    document.getElementById('table-number').value;
-
-  const notes =
-    document.getElementById('notes').value;
-
-  /* VALIDATION */
-
-  if(
-    !customerName ||
-    !tableNumber ||
-    cart.length===0
-  ){
-
-    alert(
-      'Please complete all required fields.'
-    );
-
-    return;
-
-  }
-
-  /* CREATE ORDER */
-
-  let orderList = '';
-
-  cart.forEach((item)=>{
-
-    orderList +=
-      `${item.name} - ₹${item.price}\n`;
-
-  });
-
-  /* SEND EMAIL */
-
-  emailjs.send(
-
-    "service_f8z9fmd",
-
-    "template_h9vv02q",
-
-    {
-      customer_name: customerName,
-      table_number: tableNumber,
-      order: orderList,
-      notes: notes
-    }
-
-  )
-
-  /* SUCCESS */
-
-  .then(()=>{
-
-    localStorage.setItem(
-      'lastOrder',
-      JSON.stringify(cart)
-    );
-
-    window.location.href =
-      'thankyou.html';
-
-  })
-
-  /* ERROR */
-
-  .catch((error)=>{
-
-    alert(
-      'Failed to send order.'
-    );
-
-    console.log(error);
-
-  });
-
-}
-
-/* LOAD */
-
-updateCheckout();
+</body>
+</html>
