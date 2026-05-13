@@ -158,6 +158,56 @@ function placeOrder(){
 
   }
 
+  let orderList = '';
+
+  cart.forEach((item)=>{
+
+    orderList +=
+      `${item.name} - ₹${item.price}\n`;
+
+  });
+
+  emailjs.send(
+
+    service_f8z9fmd,
+
+    template_h9vv02q,
+
+    {
+      customer_name: customerName,
+      table_number: tableNumber,
+      order: orderList,
+      notes: notes
+    }
+
+  )
+
+  .then(()=>{
+
+    localStorage.setItem(
+      'lastOrder',
+      JSON.stringify(cart)
+    );
+
+    localStorage.removeItem('cart');
+
+    window.location.href =
+      'thankyou.html';
+
+  })
+
+  .catch((error)=>{
+
+    alert(
+      'Failed to send order.'
+    );
+
+    console.log(error);
+
+  });
+
+}
+
   let orderText =
     `Customer Name: ${customerName}%0D%0A`;
 
